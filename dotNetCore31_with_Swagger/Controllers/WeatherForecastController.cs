@@ -23,8 +23,51 @@ namespace dotNetCore31_with_Swagger.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [Produces("application/json", "text/json")]
+        [HttpGet("test")]
+        public IEnumerable<WeatherForecast> Gettest()
+        {
+            var rng = new Random();
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            })
+            .ToArray();
+        }
+
+        [Consumes("application/json")]
+        [HttpGet("test2")]
+        public IEnumerable<WeatherForecast> Gettest2()
+        {
+            var rng = new Random();
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            })
+            .ToArray();
+        }
+
+        [HttpGet("test3")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public IEnumerable<WeatherForecast> Gettest3()
+        {
+            var rng = new Random();
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            })
+            .ToArray();
+        }
+
+        [HttpGet("test4")]
+        [Obsolete]
+        public IEnumerable<WeatherForecast> Gettest4()
         {
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
